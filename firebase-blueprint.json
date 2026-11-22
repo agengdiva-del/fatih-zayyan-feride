@@ -1,0 +1,201 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Profil belajar pribadi siswa SD yang terhubung dengan akun Google.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "avatarId": {
+          "type": "string",
+          "enum": ["fatih", "zayyan", "feride", "bintang", "zahra"]
+        },
+        "grade": {
+          "type": "string",
+          "maxLength": 24
+        },
+        "gradeNumber": {
+          "type": "integer"
+        },
+        "daerah": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 50
+        },
+        "sekolah": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60
+        },
+        "xp": {
+          "type": "integer"
+        },
+        "weeklyProgress": {
+          "type": "integer"
+        },
+        "badgesCount": {
+          "type": "integer"
+        },
+        "certificatesCount": {
+          "type": "integer"
+        },
+        "completedTopics": {
+          "type": "array"
+        },
+        "unlockedBadges": {
+          "type": "array"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "uid",
+        "displayName",
+        "avatarId",
+        "grade",
+        "gradeNumber",
+        "daerah",
+        "sekolah",
+        "xp",
+        "weeklyProgress",
+        "badgesCount",
+        "certificatesCount",
+        "completedTopics",
+        "unlockedBadges",
+        "updatedAt"
+      ]
+    },
+    "LeaderboardEntry": {
+      "title": "LeaderboardEntry",
+      "description": "Data peringkat publik siswa untuk kategori Umum, Daerah, dan Sekolah (tanpa PII).",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "avatarId": {
+          "type": "string",
+          "enum": ["fatih", "zayyan", "feride", "bintang", "zahra"]
+        },
+        "grade": {
+          "type": "string",
+          "maxLength": 24
+        },
+        "gradeNumber": {
+          "type": "integer"
+        },
+        "daerah": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 50
+        },
+        "sekolah": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60
+        },
+        "xp": {
+          "type": "integer"
+        },
+        "badgesCount": {
+          "type": "integer"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "uid",
+        "displayName",
+        "avatarId",
+        "grade",
+        "gradeNumber",
+        "daerah",
+        "sekolah",
+        "xp",
+        "badgesCount",
+        "updatedAt"
+      ]
+    },
+    "QuizQuestionDoc": {
+      "title": "QuizQuestionDoc",
+      "description": "Bank soal kuis SD Kelas 1 sampai Kelas 6.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "subjectId": {
+          "type": "string",
+          "enum": ["bahasa-indonesia", "matematika", "ipa", "ips", "bahasa-inggris", "seni-budaya"]
+        },
+        "gradeNumber": {
+          "type": "integer"
+        },
+        "topicTitle": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "prompt": {
+          "type": "string",
+          "maxLength": 280
+        },
+        "options": {
+          "type": "array"
+        },
+        "correctIndex": {
+          "type": "integer"
+        },
+        "explanation": {
+          "type": "string",
+          "maxLength": 300
+        }
+      },
+      "required": [
+        "id",
+        "subjectId",
+        "gradeNumber",
+        "topicTitle",
+        "prompt",
+        "options",
+        "correctIndex",
+        "explanation"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Profil pribadi dan progres belajar milik siswa tertentu."
+    },
+    "/leaderboard/{entryId}": {
+      "schema": { "$ref": "#/entities/LeaderboardEntry" },
+      "description": "Papan peringkat online publik untuk kategori Umum, Daerah, dan Sekolah."
+    },
+    "/quizzes/{quizId}": {
+      "schema": { "$ref": "#/entities/QuizQuestionDoc" },
+      "description": "Database soal kuis SD dari Kelas 1 hingga Kelas 6."
+    }
+  }
+}

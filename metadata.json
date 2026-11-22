@@ -1,0 +1,6 @@
+{
+  "name": "Fatih Zayyan Feride",
+  "description": "Aplikasi edukasi kartun interaktif untuk anak SD: belajar matematika, bahasa, sains, video pembelajaran, kuis, dan game seru.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

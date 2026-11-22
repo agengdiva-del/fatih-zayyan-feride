@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fredoka", "Nunito", system-ui, sans-serif;
+  --font-sans: "Nunito", system-ui, sans-serif;
+}
+
+@layer base {
+  html, body {
+    font-family: "Nunito", system-ui, -apple-system, sans-serif;
+    background-color: #F2F8FF;
+    color: #1E293B;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: "Fredoka", "Nunito", system-ui, sans-serif;
+  }
+}
+
+/* Tactile 3D cartoon button shadow helpers */
+.btn-3d-green {
+  box-shadow: 0 5px 0 #15803D, 0 8px 16px rgba(22, 163, 74, 0.25);
+  transition: transform 0.14s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.14s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-3d-green:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #15803D, 0 4px 8px rgba(22, 163, 74, 0.2);
+}
+
+.btn-3d-blue {
+  box-shadow: 0 5px 0 #1D4ED8, 0 8px 16px rgba(37, 99, 235, 0.25);
+  transition: transform 0.14s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.14s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-3d-blue:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #1D4ED8, 0 4px 8px rgba(37, 99, 235, 0.2);
+}
+
+.card-kid {
+  box-shadow: 0 6px 18px rgba(29, 78, 216, 0.08), 0 2px 4px rgba(15, 23, 42, 0.04);
+}
+
+.logo-stroke {
+  -webkit-text-stroke: 6px #FFFFFF;
+  paint-order: stroke fill;
+  filter: drop-shadow(0 4px 0 rgba(29, 78, 216, 0.16));
+}
+
+.logo-stroke-sm {
+  -webkit-text-stroke: 4px #FFFFFF;
+  paint-order: stroke fill;
+  filter: drop-shadow(0 3px 0 rgba(29, 78, 216, 0.14));
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-7px); }
+}
+
+@keyframes driftCloud {
+  0%, 100% { transform: translateX(0px); }
+  50% { transform: translateX(12px); }
+}
+
+@keyframes waveFlag {
+  0%, 100% { transform: skewY(0deg); }
+  50% { transform: skewY(-5deg); }
+}
+
+.animate-float-slow {
+  animation: floatSlow 3.6s ease-in-out infinite;
+}
+
+.animate-drift-cloud {
+  animation: driftCloud 7s ease-in-out infinite;
+}
+
+.animate-wave-flag {
+  animation: waveFlag 2.2s ease-in-out infinite;
+  transform-origin: left center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-slow,
+  .animate-drift-cloud,
+  .animate-wave-flag {
+    animation: none;
+  }
+}
