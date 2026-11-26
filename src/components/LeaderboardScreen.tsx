@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from 'react';
-import { motion } from 'motion/react';
-import { ArrowLeft, Globe, MapPin, School, Trophy } from 'lucide-react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { AnimatePresence, LayoutGroup, motion } from 'motion/react';
+import { ArrowLeft, ArrowUp, Globe, MapPin, School, Sparkles, Trophy } from 'lucide-react';
 import { GradeNumber, LeaderboardEntry, StudentProfile } from '../types';
 import { DAERAH_LIST, SEKOLAH_LIST } from '../data/quizDatabase';
 import { KidAvatar } from './CartoonArt';
@@ -16,6 +16,8 @@ interface LeaderboardScreenProps {
   onBack: () => void;
 }
 
+const RANK_MEMORY_KEY = 'fzf_last_leaderboard_rank_v1';
+
 export function LeaderboardScreen({
   onlineEntries,
   activeProfile,
@@ -27,6 +29,8 @@ export function LeaderboardScreen({
   const [selectedDaerah, setSelectedDaerah] = useState<string>(activeProfile.daerah);
   const [selectedSekolah, setSelectedSekolah] = useState<string>(activeProfile.sekolah);
   const [gradeFilter, setGradeFilter] = useState<'all' | GradeNumber>('all');
+  const [rankUpBanner, setRankUpBanner] = useState<{ from: number; to: number } | null>(null);
+  const [syncPulse, setSyncPulse] = useState(false);
 
   const allDaerahOptions = useMemo(() => {
     const set = new Set<string>([...DAERAH_LIST, activeProfile.daerah]);
@@ -44,19 +48,20 @@ export function LeaderboardScreen({
     return Array.from(set);
   }, [onlineEntries, activeProfile.sekolah]);
 
+  const myUid = activeProfile.uid || `local-${activeProfile.id}`;
+
   const filteredList = useMemo(() => {
-    // Ensure active local profile is represented cleanly if not already synced via Google UID
     const map = new Map<string, LeaderboardEntry>();
     onlineEntries.forEach((e) => map.set(e.uid, e));
 
-    const myUid = activeProfile.uid || `local-${activeProfile.id}`;
     const existingMine = map.get(myUid);
-    if (!existingMine || activeProfile.xp > existingMine.xp) {
+    if (!existingMine || activeProfile.xp >= existingMine.xp) {
       map.set(myUid, {
         id: myUid,
         uid: myUid,
         displayName: activeProfile.name,
         avatarId: activeProfile.avatarId,
+        customPhotoUrl: activeProfile.customPhotoUrl ?? existingMine?.customPhotoUrl ?? null,
         grade: activeProfile.gradeBand || activeProfile.grade,
         gradeNumber: activeProfile.gradeNumber,
         daerah: activeProfile.daerah,
@@ -79,10 +84,65 @@ export function LeaderboardScreen({
       list = list.filter((e) => e.gradeNumber === gradeFilter);
     }
 
-    return list.sort((a, b) => b.xp - a.xp);
-  }, [onlineEntries, activeProfile, category, selectedDaerah, selectedSekolah, gradeFilter]);
+    return list.sort((a, b) => b.xp - a.xp || a.displayName.localeCompare(b.displayName));
+  }, [onlineEntries, activeProfile, myUid, category, selectedDaerah, selectedSekolah, gradeFilter]);
 
-  const myUid = activeProfile.uid || `local-${activeProfile.id}`;
+  const scopeKey = `${myUid}:${category}:${selectedDaerah}:${selectedSekolah}:${gradeFilter}`;
+  const myIndex = filteredList.findIndex((s) => s.uid === myUid);
+  const myCurrentRank = myIndex >= 0 ? myIndex + 1 : null;
+
+  const prevRankByScopeRef = useRef<Record<string, number>>({});
+  const lastSignatureRef = useRef<string>('');
+
+  // Pulse indicator when live leaderboard data refreshes
+  useEffect(() => {
+    const sig = filteredList.map((s) => `${s.uid}:${s.xp}`).join('|');
+    if (lastSignatureRef.current && lastSignatureRef.current !== sig) {
+      setSyncPulse(true);
+      const t = window.setTimeout(() => setSyncPulse(false), 1200);
+      lastSignatureRef.current = sig;
+      return () => window.clearTimeout(t);
+    }
+    lastSignatureRef.current = sig;
+  }, [filteredList]);
+
+  // Detect rank-up both live and across screen navigation
+  useEffect(() => {
+    if (myCurrentRank === null) return;
+
+    let storedRanks: Record<string, number> = { ...prevRankByScopeRef.current };
+    try {
+      const raw = sessionStorage.getItem(RANK_MEMORY_KEY);
+      if (raw) {
+        storedRanks = { ...JSON.parse(raw), ...storedRanks };
+      }
+    } catch {
+      // ignore storage errors
+    }
+
+    const previousRank = storedRanks[scopeKey];
+    if (typeof previousRank === 'number' && myCurrentRank < previousRank) {
+      setRankUpBanner({ from: previousRank, to: myCurrentRank });
+      soundFX.playWin();
+    }
+
+    prevRankByScopeRef.current[scopeKey] = myCurrentRank;
+    try {
+      sessionStorage.setItem(
+        RANK_MEMORY_KEY,
+        JSON.stringify({ ...storedRanks, [scopeKey]: myCurrentRank })
+      );
+    } catch {
+      // ignore storage errors
+    }
+  }, [scopeKey, myCurrentRank]);
+
+  // Auto-hide rank-up banner after 6 seconds
+  useEffect(() => {
+    if (!rankUpBanner) return;
+    const t = window.setTimeout(() => setRankUpBanner(null), 6000);
+    return () => window.clearTimeout(t);
+  }, [rankUpBanner]);
 
   return (
     <div className="max-w-3xl mx-auto space-y-5 pb-8">
@@ -109,7 +169,52 @@ export function LeaderboardScreen({
             </p>
           </div>
         </div>
+
+        <AnimatePresence>
+          {syncPulse && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.85 }}
+              className="px-3 py-1.5 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-800 font-bold text-xs flex items-center gap-1.5 shrink-0"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Diperbarui!</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
+
+      {/* Rank-Up Celebration Banner */}
+      <AnimatePresence>
+        {rankUpBanner && (
+          <motion.div
+            initial={{ opacity: 0, y: -16, scale: 0.94 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -12, scale: 0.95 }}
+            transition={{ type: 'spring', stiffness: 320, damping: 22 }}
+            className="bg-gradient-to-r from-[#FEF08A] via-[#FDE047] to-[#86EFAC] rounded-2xl p-4 border-2 border-white shadow-md flex items-center justify-between gap-3"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-2xl bg-white/90 flex items-center justify-center text-2xl shadow-sm shrink-0">
+                🚀
+              </div>
+              <div>
+                <div className="font-display font-bold text-lg text-slate-900">
+                  Hore! Peringkat Kamu Naik! 🎉
+                </div>
+                <div className="text-sm font-bold text-emerald-900">
+                  Kamu melesat dari posisi #{rankUpBanner.from} ke #{rankUpBanner.to}!
+                </div>
+              </div>
+            </div>
+            <div className="px-3 py-1.5 rounded-xl bg-emerald-600 text-white font-display font-bold text-sm flex items-center gap-1 shrink-0 shadow">
+              <ArrowUp className="w-4 h-4 stroke-[3]" />
+              <span>+{rankUpBanner.from - rankUpBanner.to}</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Google Online Sync Prompt if playing offline/guest */}
       {!isGoogleSignedIn && (
@@ -243,7 +348,7 @@ export function LeaderboardScreen({
         </div>
       </div>
 
-      {/* Leaderboard List */}
+      {/* Animated Leaderboard List */}
       <div className="bg-gradient-to-b from-[#DBEAFE] to-white rounded-[28px] p-4 sm:p-6 card-kid border-2 border-white space-y-3">
         {filteredList.length === 0 ? (
           <div className="py-10 text-center space-y-2">
@@ -256,53 +361,87 @@ export function LeaderboardScreen({
             </p>
           </div>
         ) : (
-          filteredList.map((student, idx) => {
-            const isMe = student.uid === myUid;
-            const rankBadge =
-              idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `#${idx + 1}`;
-            return (
-              <motion.div
-                key={student.id}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.03 }}
-                className={`rounded-2xl p-3.5 flex items-center justify-between gap-3 border-2 ${
-                  isMe
-                    ? 'bg-[#EFF6FF] border-[#3B82F6] shadow-sm'
-                    : 'bg-white border-slate-100'
-                }`}
-              >
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-10 text-center font-display font-bold text-2xl shrink-0">
-                    {rankBadge}
-                  </div>
-                  <KidAvatar
-                    avatarId={student.avatarId}
-                    mood={idx === 0 ? 'cheering' : 'happy'}
-                    size={54}
-                  />
-                  <div className="min-w-0">
-                    <div className="font-display font-bold text-lg text-slate-900 truncate">
-                      {student.displayName}{' '}
-                      {isMe && <span className="text-sm text-[#2563EB]">(Kamu)</span>}
+          <LayoutGroup>
+            <AnimatePresence mode="popLayout">
+              {filteredList.map((student, idx) => {
+                const isMe = student.uid === myUid;
+                const climbedMe = isMe && rankUpBanner !== null;
+                const rankBadge =
+                  idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `#${idx + 1}`;
+                return (
+                  <motion.div
+                    layout
+                    key={student.uid}
+                    initial={{ opacity: 0, y: 12, scale: 0.97 }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      scale: climbedMe ? [1, 1.03, 1] : 1,
+                    }}
+                    exit={{ opacity: 0, scale: 0.94 }}
+                    transition={{
+                      layout: { type: 'spring', stiffness: 320, damping: 26 },
+                      opacity: { duration: 0.25 },
+                      scale: { duration: 0.5 },
+                    }}
+                    className={`rounded-2xl p-3.5 flex items-center justify-between gap-3 border-2 ${
+                      climbedMe
+                        ? 'bg-gradient-to-r from-[#EFF6FF] to-[#FEF9C3] border-amber-400 shadow-md ring-2 ring-amber-300/70'
+                        : isMe
+                        ? 'bg-[#EFF6FF] border-[#3B82F6] shadow-sm'
+                        : 'bg-white border-slate-100'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <motion.div
+                        key={`rank-${idx}`}
+                        initial={{ scale: 0.85 }}
+                        animate={{ scale: 1 }}
+                        className="w-10 text-center font-display font-bold text-2xl shrink-0"
+                      >
+                        {rankBadge}
+                      </motion.div>
+                      <KidAvatar
+                        avatarId={student.avatarId}
+                        photoUrl={student.customPhotoUrl}
+                        mood={idx === 0 || climbedMe ? 'cheering' : 'happy'}
+                        size={54}
+                      />
+                      <div className="min-w-0">
+                        <div className="font-display font-bold text-lg text-slate-900 truncate flex items-center gap-1.5">
+                          <span className="truncate">{student.displayName}</span>
+                          {isMe && <span className="text-sm text-[#2563EB] shrink-0">(Kamu)</span>}
+                          {climbedMe && (
+                            <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-emerald-500 text-white text-[11px] font-bold shrink-0">
+                              <ArrowUp className="w-3 h-3 stroke-[3]" />
+                              Naik!
+                            </span>
+                          )}
+                        </div>
+                        <div className="text-xs font-bold text-slate-500 truncate">
+                          {student.grade} · {student.sekolah} · {student.daerah}
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-xs font-bold text-slate-500 truncate">
-                      {student.grade} · {student.sekolah} · {student.daerah}
-                    </div>
-                  </div>
-                </div>
 
-                <div className="text-right shrink-0">
-                  <div className="font-display font-bold text-xl text-amber-600 tabular-nums">
-                    {student.xp.toLocaleString('id-ID')} ⭐
-                  </div>
-                  <div className="text-[11px] font-bold text-slate-400">
-                    {student.badgesCount} Lencana
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })
+                    <div className="text-right shrink-0">
+                      <motion.div
+                        key={student.xp}
+                        initial={{ scale: 1.12 }}
+                        animate={{ scale: 1 }}
+                        className="font-display font-bold text-xl text-amber-600 tabular-nums"
+                      >
+                        {student.xp.toLocaleString('id-ID')} ⭐
+                      </motion.div>
+                      <div className="text-[11px] font-bold text-slate-400">
+                        {student.badgesCount} Lencana
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </LayoutGroup>
         )}
       </div>
     </div>

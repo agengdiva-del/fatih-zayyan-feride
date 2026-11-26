@@ -515,6 +515,20 @@ export const SUBJECTS: SubjectInfo[] = [
               correctIndex: 2,
               explanation: 'Lawan kata dari rajin adalah malas.',
             },
+            {
+              id: 'bi-4',
+              prompt: 'Sinonim dari kata "Pintar" adalah ...',
+              options: ['Bodoh', 'Cerdas', 'Lambat', 'Pelit'],
+              correctIndex: 1,
+              explanation: 'Pintar memiliki persamaan arti dengan cerdas atau pandai.',
+            },
+            {
+              id: 'bi-5',
+              prompt: 'Lawan kata dari "Panas" adalah ...',
+              options: ['Hangat', 'Dingin', 'Terik', 'Kering'],
+              correctIndex: 1,
+              explanation: 'Antonim dari panas adalah dingin.',
+            },
           ],
           Menengah: [
             {
@@ -531,6 +545,20 @@ export const SUBJECTS: SubjectInfo[] = [
               correctIndex: 2,
               explanation: 'Kalimat tanya diakhiri dengan tanda tanya (?).',
             },
+            {
+              id: 'bi-m3',
+              prompt: 'Kata baku dari "Apotik" adalah ...',
+              options: ['Apotek', 'Apotik', 'Apoteker', 'Apotikah'],
+              correctIndex: 0,
+              explanation: 'Penulisan kata baku yang benar dalam KBBI adalah "Apotek".',
+            },
+            {
+              id: 'bi-m4',
+              prompt: 'Lawan kata dari "Hemat" adalah ...',
+              options: ['Irit', 'Boros', 'Sederhana', 'Cermat'],
+              correctIndex: 1,
+              explanation: 'Antonim dari hemat adalah boros.',
+            },
           ],
           Mahir: [
             {
@@ -546,6 +574,20 @@ export const SUBJECTS: SubjectInfo[] = [
               options: ['Judul', 'Ide pokok', 'Pantun', 'Sajak'],
               correctIndex: 1,
               explanation: 'Ide pokok adalah gagasan utama yang dibahas dalam paragraf.',
+            },
+            {
+              id: 'bi-h3',
+              prompt: 'Makna ungkapan "Rendah hati" adalah ...',
+              options: ['Sombong', 'Tidak sombong', 'Pemalu', 'Penakut'],
+              correctIndex: 1,
+              explanation: '"Rendah hati" berarti baik budi dan tidak sombong.',
+            },
+            {
+              id: 'bi-h4',
+              prompt: 'Kalimat perintah biasanya diakhiri dengan tanda ...',
+              options: ['Titik (.)', 'Seru (!)', 'Tanya (?)', 'Koma (,)'],
+              correctIndex: 1,
+              explanation: 'Kalimat perintah atau seruan diakhiri dengan tanda seru (!).',
             },
           ],
         },
@@ -573,6 +615,20 @@ export const SUBJECTS: SubjectInfo[] = [
               correctIndex: 2,
               explanation: 'Kalimat berita selalu diakhiri tanda titik (.).',
             },
+            {
+              id: 'ej-3',
+              prompt: 'Penulisan nama hari yang tepat adalah ...',
+              options: ['senin', 'Senin', 'SENIN', 'seNin'],
+              correctIndex: 1,
+              explanation: 'Huruf pertama nama hari diawali huruf kapital.',
+            },
+            {
+              id: 'ej-4',
+              prompt: 'Huruf kapital digunakan pada ... kalimat.',
+              options: ['Akhir', 'Tengah', 'Awal', 'Semua'],
+              correctIndex: 2,
+              explanation: 'Awal kalimat selalu ditulis dengan huruf kapital.',
+            },
           ],
           Menengah: [
             {
@@ -587,6 +643,25 @@ export const SUBJECTS: SubjectInfo[] = [
               correctIndex: 1,
               explanation: 'Awal kalimat, nama orang, dan nama kota memakai huruf kapital.',
             },
+            {
+              id: 'ej-m2',
+              prompt: 'Penulisan nama bulan yang benar adalah ...',
+              options: ['bulan agustus', 'Bulan Agustus', 'bulan Agustus', 'BULAN agustus'],
+              correctIndex: 2,
+              explanation: 'Nama bulan ("Agustus") diawali huruf kapital.',
+            },
+            {
+              id: 'ej-m3',
+              prompt: 'Tanda koma (,) digunakan untuk memisahkan ...',
+              options: [
+                'Akhir kalimat berita',
+                'Perincian lebih dari dua benda',
+                'Kalimat tanya',
+                'Judul buku',
+              ],
+              correctIndex: 1,
+              explanation: 'Contoh: Ibu membeli apel, jeruk, dan mangga.',
+            },
           ],
           Mahir: [
             {
@@ -595,6 +670,20 @@ export const SUBJECTS: SubjectInfo[] = [
               options: ['disekolah', 'di sekolah', 'di-sekolah', 'diSekolah'],
               correctIndex: 1,
               explanation: 'Kata depan "di" yang menunjukkan tempat ditulis terpisah: di sekolah.',
+            },
+            {
+              id: 'ej-h2',
+              prompt: 'Penulisan imbuhan "di-" pada kata kerja pasif yang benar adalah ...',
+              options: ['di baca', 'dibaca', 'di-baca', 'diBaca'],
+              correctIndex: 1,
+              explanation: 'Imbuhan "di-" pada kata kerja pasif ditulis serangkai: dibaca.',
+            },
+            {
+              id: 'ej-h3',
+              prompt: 'Singkatan gelar "Sarjana Pendidikan" yang tepat adalah ...',
+              options: ['S.Pd', 'S.Pd.', 'Spd.', 'S,Pd'],
+              correctIndex: 1,
+              explanation: 'Penulisan gelar yang baku disertai titik di akhir: S.Pd.',
             },
           ],
         },
@@ -634,6 +723,21 @@ export const SUBJECTS: SubjectInfo[] = [
               explanation: 'Ikan hidup di air dan bernapas dengan insang.',
               visualAid: { type: 'emoji', emoji: '🐟', label: 'Ikan berenang di air' },
             },
+            {
+              id: 'ipa-3',
+              prompt: 'Hewan pemakan tumbuhan disebut ...',
+              options: ['Karnivora', 'Herbivora', 'Omnivora', 'Insektivora'],
+              correctIndex: 1,
+              explanation: 'Sapi, kambing, dan kelinci adalah hewan herbivora (pemakan tumbuhan).',
+              visualAid: { type: 'emoji', emoji: '🐄', label: 'Sapi suka makan rumput hijau' },
+            },
+            {
+              id: 'ipa-4',
+              prompt: 'Alat indra manusia untuk melihat adalah ...',
+              options: ['Telinga', 'Hidung', 'Mata', 'Kulit'],
+              correctIndex: 2,
+              explanation: 'Mata adalah indra penglihatan kita.',
+            },
           ],
           Menengah: [
             {
@@ -643,6 +747,20 @@ export const SUBJECTS: SubjectInfo[] = [
               correctIndex: 1,
               explanation: 'Fotosintesis terjadi di daun dengan bantuan sinar matahari.',
             },
+            {
+              id: 'ipa-m2',
+              prompt: 'Urutan metamorfosis kupu-kupu setelah ulat adalah ...',
+              options: ['Telur', 'Kepompong', 'Kupu-kupu dewasa', 'Larva'],
+              correctIndex: 1,
+              explanation: 'Metamorfosis kupu-kupu: Telur → Ulat → Kepompong → Kupu-kupu.',
+            },
+            {
+              id: 'ipa-m3',
+              prompt: 'Tulang yang melindungi otak manusia adalah ...',
+              options: ['Tulang rusuk', 'Tengkorak', 'Tulang belakang', 'Tulang paha'],
+              correctIndex: 1,
+              explanation: 'Tengkorak melindungi organ penting yaitu otak.',
+            },
           ],
           Mahir: [
             {
@@ -651,6 +769,20 @@ export const SUBJECTS: SubjectInfo[] = [
               options: ['Membeku', 'Mencair', 'Menguap', 'Menyublim'],
               correctIndex: 2,
               explanation: 'Air yang dipanaskan akan menguap menjadi uap air (gas).',
+            },
+            {
+              id: 'ipa-h2',
+              prompt: 'Perubahan wujud dari gas menjadi cair disebut ...',
+              options: ['Mengembun', 'Membeku', 'Menguap', 'Mengkristal'],
+              correctIndex: 0,
+              explanation: 'Embun di pagi hari adalah contoh peristiwa mengembun.',
+            },
+            {
+              id: 'ipa-h3',
+              prompt: 'Gaya yang membuat buah apel jatuh ke bawah menuju tanah adalah ...',
+              options: ['Gaya gesek', 'Gaya magnet', 'Gaya gravitasi', 'Gaya pegas'],
+              correctIndex: 2,
+              explanation: 'Gaya gravitasi Bumi menarik semua benda menuju pusat Bumi.',
             },
           ],
         },
@@ -672,6 +804,21 @@ export const SUBJECTS: SubjectInfo[] = [
               explanation: 'Bumi adalah planet ketiga dari Matahari dan tempat tinggal kita.',
               visualAid: { type: 'emoji', emoji: '🌍', label: 'Planet Bumi yang indah' },
             },
+            {
+              id: 'ts-2',
+              prompt: 'Sumber energi panas dan cahaya terbesar bagi Bumi adalah ...',
+              options: ['Bulan', 'Matahari', 'Bintang kecil', 'Lampu'],
+              correctIndex: 1,
+              explanation: 'Matahari menyinari dan menghangatkan Bumi setiap hari.',
+              visualAid: { type: 'emoji', emoji: '☀️', label: 'Matahari pusat tata surya' },
+            },
+            {
+              id: 'ts-3',
+              prompt: 'Satelit alami yang mengelilingi Bumi adalah ...',
+              options: ['Mars', 'Bulan', 'Komet', 'Saturnus'],
+              correctIndex: 1,
+              explanation: 'Bulan adalah satelit alami Bumi.',
+            },
           ],
           Menengah: [
             {
@@ -681,6 +828,20 @@ export const SUBJECTS: SubjectInfo[] = [
               correctIndex: 2,
               explanation: 'Jupiter adalah planet terbesar di Tata Surya.',
             },
+            {
+              id: 'ts-m2',
+              prompt: 'Planet yang terkenal memiliki cincin indah adalah ...',
+              options: ['Mars', 'Saturnus', 'Venus', 'Merkurius'],
+              correctIndex: 1,
+              explanation: 'Saturnus memiliki cincin es dan batuan yang sangat jelas.',
+            },
+            {
+              id: 'ts-m3',
+              prompt: 'Planet terdekat dengan Matahari adalah ...',
+              options: ['Merkurius', 'Venus', 'Bumi', 'Mars'],
+              correctIndex: 0,
+              explanation: 'Merkurius adalah planet pertama yang paling dekat dengan Matahari.',
+            },
           ],
           Mahir: [
             {
@@ -689,6 +850,13 @@ export const SUBJECTS: SubjectInfo[] = [
               options: ['Rotasi Bumi', 'Revolusi Bulan', 'Angin kencang', 'Gerhana'],
               correctIndex: 0,
               explanation: 'Rotasi Bumi pada porosnya menyebabkan bagian Bumi bergantian terkena sinar Matahari.',
+            },
+            {
+              id: 'ts-h2',
+              prompt: 'Lama waktu yang dibutuhkan Bumi untuk satu kali berevolusi mengelilingi Matahari adalah ...',
+              options: ['24 jam', '30 hari', '365¼ hari (1 tahun)', '7 hari'],
+              correctIndex: 2,
+              explanation: 'Revolusi Bumi memerlukan waktu 1 tahun (365¼ hari).',
             },
           ],
         },
@@ -727,6 +895,13 @@ export const SUBJECTS: SubjectInfo[] = [
               correctIndex: 1,
               explanation: 'Garuda Pancasila adalah lambang negara Indonesia.',
             },
+            {
+              id: 'ips-3',
+              prompt: 'Lagu kebangsaan Indonesia adalah ...',
+              options: ['Garuda Pancasila', 'Indonesia Raya', 'Halo-Halo Bandung', 'Satu Nusa Satu Bangsa'],
+              correctIndex: 1,
+              explanation: 'Lagu kebangsaan kita adalah Indonesia Raya ciptaan W.R. Supratman.',
+            },
           ],
           Menengah: [
             {
@@ -736,6 +911,20 @@ export const SUBJECTS: SubjectInfo[] = [
               correctIndex: 1,
               explanation: 'Proklamasi Kemerdekaan Indonesia terjadi pada 17 Agustus 1945.',
             },
+            {
+              id: 'ips-m2',
+              prompt: 'Semboyan bangsa Indonesia yang artinya berbeda-beda tetapi tetap satu adalah ...',
+              options: ['Tut Wuri Handayani', 'Bhinneka Tunggal Ika', 'Pancasila', 'Sumpah Pemuda'],
+              correctIndex: 1,
+              explanation: 'Bhinneka Tunggal Ika tertulis pada pita di kaki Garuda Pancasila.',
+            },
+            {
+              id: 'ips-m3',
+              prompt: 'Rumah adat Tongkonan berasal dari provinsi ...',
+              options: ['Bali', 'Sulawesi Selatan', 'Jawa Tengah', 'Papua'],
+              correctIndex: 1,
+              explanation: 'Rumah Tongkonan adalah rumah adat suku Toraja di Sulawesi Selatan.',
+            },
           ],
           Mahir: [
             {
@@ -744,6 +933,20 @@ export const SUBJECTS: SubjectInfo[] = [
               options: ['PBB', 'ASEAN', 'APEC', 'WHO'],
               correctIndex: 1,
               explanation: 'ASEAN adalah kerja sama regional negara-negara Asia Tenggara.',
+            },
+            {
+              id: 'ips-h2',
+              prompt: 'Tanggal 28 Oktober diperingati sebagai Hari ...',
+              options: ['Pahlawan', 'Sumpah Pemuda', 'Pendidikan Nasional', 'Kartini'],
+              correctIndex: 1,
+              explanation: 'Sumpah Pemuda diikrarkan pada 28 Oktober 1928.',
+            },
+            {
+              id: 'ips-h3',
+              prompt: 'Pulau terbesar di Indonesia adalah ...',
+              options: ['Jawa', 'Bali', 'Kalimantan', 'Lombok'],
+              correctIndex: 2,
+              explanation: 'Kalimantan adalah pulau terbesar di wilayah Indonesia.',
             },
           ],
         },
@@ -782,6 +985,20 @@ export const SUBJECTS: SubjectInfo[] = [
               correctIndex: 1,
               explanation: 'Good Morning digunakan untuk menyapa di pagi hari.',
             },
+            {
+              id: 'en-3',
+              prompt: 'Bahasa Inggris dari angka "Tujuh" adalah ...',
+              options: ['Five', 'Six', 'Seven', 'Eight'],
+              correctIndex: 2,
+              explanation: 'Five (5), Six (6), Seven (7), Eight (8).',
+            },
+            {
+              id: 'en-4',
+              prompt: 'Warna "Blue" artinya ...',
+              options: ['Merah', 'Kuning', 'Biru', 'Hijau'],
+              correctIndex: 2,
+              explanation: 'Blue berarti Biru seperti langit cerah.',
+            },
           ],
           Menengah: [
             {
@@ -791,6 +1008,20 @@ export const SUBJECTS: SubjectInfo[] = [
               correctIndex: 1,
               explanation: 'Cat artinya Kucing.',
             },
+            {
+              id: 'en-m2',
+              prompt: 'My mother cooks in the ... (Ibuku memasak di ...)',
+              options: ['Bedroom', 'Kitchen', 'Garden', 'Bathroom'],
+              correctIndex: 1,
+              explanation: 'Kitchen artinya dapur.',
+            },
+            {
+              id: 'en-m3',
+              prompt: 'What is the opposite of "Big"?',
+              options: ['Tall', 'Small', 'Fast', 'Happy'],
+              correctIndex: 1,
+              explanation: 'Lawan kata Big (besar) adalah Small (kecil).',
+            },
           ],
           Mahir: [
             {
@@ -799,6 +1030,20 @@ export const SUBJECTS: SubjectInfo[] = [
               options: ['go', 'goes', 'going', 'went'],
               correctIndex: 1,
               explanation: 'Untuk subjek "She", kata kerja ditambah -es menjadi "goes".',
+            },
+            {
+              id: 'en-h2',
+              prompt: 'Yesterday, Fatih ___ a very interesting storybook.',
+              options: ['read', 'reads', 'reading', 'will read'],
+              correctIndex: 0,
+              explanation: '"Yesterday" menunjukkan bentuk lampau (past tense): read.',
+            },
+            {
+              id: 'en-h3',
+              prompt: 'There ___ five apples in the basket.',
+              options: ['is', 'are', 'am', 'was'],
+              correctIndex: 1,
+              explanation: 'Benda jamak ("five apples") menggunakan "are".',
             },
           ],
         },
@@ -830,6 +1075,20 @@ export const SUBJECTS: SubjectInfo[] = [
               explanation: 'Merah + Kuning = Oranye yang cerah!',
               visualAid: { type: 'emoji', emoji: '🎨', label: 'Ayo berkreasi dengan warna!' },
             },
+            {
+              id: 'sb-2',
+              prompt: 'Campuran warna Biru dan Kuning menghasilkan warna ...',
+              options: ['Hijau', 'Ungu', 'Merah', 'Oranye'],
+              correctIndex: 0,
+              explanation: 'Biru + Kuning = Hijau segar!',
+            },
+            {
+              id: 'sb-3',
+              prompt: 'Alat musik Angklung dimainkan dengan cara ...',
+              options: ['Dipukul', 'Ditiup', 'Digoyangkan', 'Dipetik'],
+              correctIndex: 2,
+              explanation: 'Angklung terbuat dari bambu dan digoyangkan agar berbunyi.',
+            },
           ],
           Menengah: [
             {
@@ -844,6 +1103,20 @@ export const SUBJECTS: SubjectInfo[] = [
               correctIndex: 0,
               explanation: 'Merah, Kuning, dan Biru adalah warna dasar (primer).',
             },
+            {
+              id: 'sb-m2',
+              prompt: 'Tari Kecak adalah tarian tradisional yang terkenal dari ...',
+              options: ['Aceh', 'Bali', 'Papua', 'Kalimantan'],
+              correctIndex: 1,
+              explanation: 'Tari Kecak berasal dari Pulau Bali.',
+            },
+            {
+              id: 'sb-m3',
+              prompt: 'Alat musik Sasando berasal dari provinsi ...',
+              options: ['Nusa Tenggara Timur', 'Jawa Barat', 'Sumatera Utara', 'Riau'],
+              correctIndex: 0,
+              explanation: 'Sasando adalah alat musik petik khas Pulau Rote, NTT.',
+            },
           ],
           Mahir: [
             {
@@ -852,6 +1125,13 @@ export const SUBJECTS: SubjectInfo[] = [
               options: ['1 Dimensi', '2 Dimensi', '3 Dimensi', 'Abstrak'],
               correctIndex: 2,
               explanation: 'Patung dan vas bunga adalah contoh karya seni 3 Dimensi.',
+            },
+            {
+              id: 'sb-h2',
+              prompt: 'Motif batik tradisional yang berasal dari Solo dan Yogyakarta antara lain ...',
+              options: ['Batik Parang', 'Songket Palembang', 'Ulos Batak', 'Tenun Ikat'],
+              correctIndex: 0,
+              explanation: 'Batik Parang merupakan motif klasik khas Keraton Solo & Yogyakarta.',
             },
           ],
         },

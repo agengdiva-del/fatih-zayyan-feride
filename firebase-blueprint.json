@@ -19,6 +19,10 @@
           "type": "string",
           "enum": ["fatih", "zayyan", "feride", "bintang", "zahra"]
         },
+        "customPhotoUrl": {
+          "type": "string",
+          "maxLength": 60000
+        },
         "grade": {
           "type": "string",
           "maxLength": 24
@@ -94,6 +98,10 @@
         "avatarId": {
           "type": "string",
           "enum": ["fatih", "zayyan", "feride", "bintang", "zahra"]
+        },
+        "customPhotoUrl": {
+          "type": "string",
+          "maxLength": 60000
         },
         "grade": {
           "type": "string",

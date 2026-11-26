@@ -48,11 +48,13 @@ export function AppLogo({ size = 'lg', showSun = true }: { size?: 'sm' | 'md' | 
 
 export function KidAvatar({
   avatarId,
+  photoUrl,
   mood = 'happy',
   size = 80,
   className = '',
 }: {
   avatarId: AvatarId;
+  photoUrl?: string | null;
   mood?: 'happy' | 'waving' | 'cheering' | 'thinking';
   size?: number;
   className?: string;
@@ -123,6 +125,22 @@ export function KidAvatar({
   };
 
   const p = palette[avatarId] || palette.fatih;
+
+  if (photoUrl) {
+    return (
+      <div
+        style={{ width: size, height: size, backgroundColor: p.bg }}
+        className={`relative rounded-full overflow-hidden border-[3px] border-white shadow-md shrink-0 ${className}`}
+      >
+        <img
+          src={photoUrl}
+          alt={p.label}
+          referrerPolicy="no-referrer"
+          className="w-full h-full object-cover"
+        />
+      </div>
+    );
+  }
 
   return (
     <svg
@@ -435,7 +453,19 @@ export function TrophyIllustration({ size = 110 }: { size?: number }) {
   );
 }
 
-export function GameCardScene({ gameId }: { gameId: 'tangkap-huruf' | 'tebak-angka' | 'susun-kata' | 'puzzle-hewan' }) {
+export function GameCardScene({
+  gameId,
+}: {
+  gameId:
+    | 'tangkap-huruf'
+    | 'tebak-angka'
+    | 'susun-kata'
+    | 'puzzle-hewan'
+    | 'hitung-roket'
+    | 'tebak-warna'
+    | 'cocok-budaya'
+    | 'pancing-sains';
+}) {
   if (gameId === 'tangkap-huruf') {
     return (
       <div className="relative flex items-center justify-between w-full h-28 px-2 overflow-hidden">
@@ -494,6 +524,59 @@ export function GameCardScene({ gameId }: { gameId: 'tangkap-huruf' | 'tebak-ang
               </div>
             ))}
           </div>
+        </div>
+      </div>
+    );
+  }
+  if (gameId === 'hitung-roket') {
+    return (
+      <div className="relative flex items-center justify-between w-full h-28 px-3 overflow-hidden">
+        <div className="text-5xl drop-shadow">🚀</div>
+        <div className="flex flex-col items-end gap-1">
+          <div className="px-3 py-1 rounded-xl bg-white/90 text-indigo-900 font-display font-bold text-lg shadow">
+            6 × 4 = ?
+          </div>
+          <div className="flex gap-1 text-xl">⭐⭐⭐</div>
+        </div>
+      </div>
+    );
+  }
+  if (gameId === 'tebak-warna') {
+    return (
+      <div className="relative flex items-center justify-between w-full h-28 px-3 overflow-hidden">
+        <div className="flex items-center gap-2">
+          <div className="w-10 h-10 rounded-full bg-rose-500 border-2 border-white shadow" />
+          <span className="font-display font-bold text-white text-xl">+</span>
+          <div className="w-10 h-10 rounded-full bg-yellow-300 border-2 border-white shadow" />
+        </div>
+        <div className="w-12 h-12 rounded-2xl bg-orange-500 border-4 border-white shadow flex items-center justify-center font-display font-bold text-white text-xl">
+          ?
+        </div>
+      </div>
+    );
+  }
+  if (gameId === 'cocok-budaya') {
+    return (
+      <div className="relative flex items-center justify-between w-full h-28 px-3 overflow-hidden">
+        <div className="text-5xl">🇮🇩</div>
+        <div className="flex flex-col items-end gap-1">
+          <div className="px-3 py-1 rounded-xl bg-white/95 text-rose-800 font-display font-bold text-sm shadow">
+            Angklung · Batik
+          </div>
+          <div className="text-2xl">🥁🎭</div>
+        </div>
+      </div>
+    );
+  }
+  if (gameId === 'pancing-sains') {
+    return (
+      <div className="relative flex items-center justify-between w-full h-28 px-3 overflow-hidden">
+        <div className="text-5xl">🪐</div>
+        <div className="flex flex-col items-end gap-1">
+          <div className="px-3 py-1 rounded-xl bg-white/95 text-cyan-900 font-display font-bold text-sm shadow">
+            Sains & Alam
+          </div>
+          <div className="text-2xl">🌱🐟☀️</div>
         </div>
       </div>
     );

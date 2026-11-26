@@ -24,7 +24,7 @@ export const SEKOLAH_LIST = [
 ];
 
 export const SD_QUIZ_BANK: QuizBankDoc[] = [
-  // ===================== KELAS 1 SD =====================
+  // ===================== KELAS 1 SD (12 SOAL) =====================
   {
     id: 'k1-mat-1',
     subjectId: 'matematika',
@@ -56,6 +56,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     explanation: 'Urutan menghitung: 13, 14, 15, 16.',
   },
   {
+    id: 'k1-mat-4',
+    subjectId: 'matematika',
+    gradeNumber: 1,
+    topicTitle: 'Mengenal Bentuk',
+    prompt: 'Bentuk roda sepeda adalah ...',
+    options: ['Segitiga', 'Persegi', 'Lingkaran', 'Kotak'],
+    correctIndex: 2,
+    explanation: 'Roda sepeda berbentuk lingkaran agar bisa berputar lancar.',
+  },
+  {
     id: 'k1-bi-1',
     subjectId: 'bahasa-indonesia',
     gradeNumber: 1,
@@ -76,6 +86,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     explanation: 'Kita menulis di buku menggunakan pensil atau pulpen.',
   },
   {
+    id: 'k1-bi-3',
+    subjectId: 'bahasa-indonesia',
+    gradeNumber: 1,
+    topicTitle: 'Suku Kata',
+    prompt: 'Kata "BOLA" terdiri dari suku kata ...',
+    options: ['BO - LA', 'B - OLA', 'BOL - A', 'B - O - L - A'],
+    correctIndex: 0,
+    explanation: 'Kata BOLA dipenggal menjadi dua suku kata: BO dan LA.',
+  },
+  {
     id: 'k1-ipa-1',
     subjectId: 'ipa',
     gradeNumber: 1,
@@ -84,6 +104,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     options: ['Telinga', 'Hidung', 'Mata', 'Tangan'],
     correctIndex: 2,
     explanation: 'Kita melihat warna dan membaca buku menggunakan mata.',
+  },
+  {
+    id: 'k1-ipa-2',
+    subjectId: 'ipa',
+    gradeNumber: 1,
+    topicTitle: 'Panca Indra',
+    prompt: 'Kita mendengarkan suara musik menggunakan ...',
+    options: ['Mata', 'Lidah', 'Telinga', 'Kulit'],
+    correctIndex: 2,
+    explanation: 'Telinga adalah indra pendengaran.',
   },
   {
     id: 'k1-ips-1',
@@ -116,7 +146,7 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     explanation: 'Daun segar berwarna hijau karena mengandung zat hijau daun.',
   },
 
-  // ===================== KELAS 2 SD =====================
+  // ===================== KELAS 2 SD (12 SOAL) =====================
   {
     id: 'k2-mat-1',
     subjectId: 'matematika',
@@ -148,6 +178,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     explanation: 'Satu hari penuh siang dan malam lamanya 24 jam.',
   },
   {
+    id: 'k2-mat-4',
+    subjectId: 'matematika',
+    gradeNumber: 2,
+    topicTitle: 'Nilai Tempat',
+    prompt: 'Pada bilangan 48, angka 4 menempati nilai tempat ...',
+    options: ['Satuan', 'Puluhan', 'Ratusan', 'Ribuan'],
+    correctIndex: 1,
+    explanation: '48 berarti 4 puluhan (40) dan 8 satuan.',
+  },
+  {
     id: 'k2-bi-1',
     subjectId: 'bahasa-indonesia',
     gradeNumber: 2,
@@ -158,6 +198,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     explanation: 'Nama hari selalu diawali dengan huruf kapital, seperti Senin.',
   },
   {
+    id: 'k2-bi-2',
+    subjectId: 'bahasa-indonesia',
+    gradeNumber: 2,
+    topicTitle: 'Tanda Baca',
+    prompt: 'Kalimat tanya diakhiri dengan tanda ...',
+    options: ['Titik (.)', 'Koma (,)', 'Tanya (?)', 'Seru (!)'],
+    correctIndex: 2,
+    explanation: 'Contoh kalimat tanya: "Siapa namamu?" diakhiri tanda tanya.',
+  },
+  {
     id: 'k2-ipa-1',
     subjectId: 'ipa',
     gradeNumber: 2,
@@ -166,6 +216,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     options: ['Bunga', 'Akar', 'Buah', 'Daun'],
     correctIndex: 1,
     explanation: 'Akar tumbuh di dalam tanah untuk menyerap air dan mineral.',
+  },
+  {
+    id: 'k2-ipa-2',
+    subjectId: 'ipa',
+    gradeNumber: 2,
+    topicTitle: 'Hewan & Habitat',
+    prompt: 'Hewan yang hidup di air dan bernapas dengan insang adalah ...',
+    options: ['Kucing', 'Ayam', 'Ikan', 'Kelinci'],
+    correctIndex: 2,
+    explanation: 'Ikan bernapas di air menggunakan insang.',
   },
   {
     id: 'k2-ips-1',
@@ -188,6 +248,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     explanation: 'Good Morning digunakan untuk menyapa teman di pagi hari.',
   },
   {
+    id: 'k2-en-2',
+    subjectId: 'bahasa-inggris',
+    gradeNumber: 2,
+    topicTitle: 'Colors',
+    prompt: 'Bahasa Inggris dari warna "Biru" adalah ...',
+    options: ['Red', 'Blue', 'Green', 'Yellow'],
+    correctIndex: 1,
+    explanation: 'Blue = Biru, Red = Merah, Green = Hijau.',
+  },
+  {
     id: 'k2-sb-1',
     subjectId: 'seni-budaya',
     gradeNumber: 2,
@@ -198,7 +268,7 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     explanation: 'Merah + Kuning menghasilkan warna Oranye (Jingga).',
   },
 
-  // ===================== KELAS 3 SD =====================
+  // ===================== KELAS 3 SD (12 SOAL) =====================
   {
     id: 'k3-mat-1',
     subjectId: 'matematika',
@@ -230,6 +300,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     explanation: '1 bagian dari 4 potongan sama besar ditulis 1/4.',
   },
   {
+    id: 'k3-mat-4',
+    subjectId: 'matematika',
+    gradeNumber: 3,
+    topicTitle: 'Satuan Panjang',
+    prompt: '2 meter sama dengan berapa sentimeter?',
+    options: ['20 cm', '200 cm', '2.000 cm', '120 cm'],
+    correctIndex: 1,
+    explanation: '1 meter = 100 cm, maka 2 meter = 200 cm.',
+  },
+  {
     id: 'k3-bi-1',
     subjectId: 'bahasa-indonesia',
     gradeNumber: 3,
@@ -240,6 +320,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     explanation: 'Antonim (lawan kata) dari rajin adalah malas.',
   },
   {
+    id: 'k3-bi-2',
+    subjectId: 'bahasa-indonesia',
+    gradeNumber: 3,
+    topicTitle: 'Sinonim',
+    prompt: 'Persamaan kata dari "Gembira" adalah ...',
+    options: ['Sedih', 'Senang', 'Marah', 'Takut'],
+    correctIndex: 1,
+    explanation: 'Gembira bersinonim dengan senang atau bahagia.',
+  },
+  {
     id: 'k3-ipa-1',
     subjectId: 'ipa',
     gradeNumber: 3,
@@ -248,6 +338,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     options: ['Batu', 'Air minum', 'Udara dalam balon', 'Pensil'],
     correctIndex: 2,
     explanation: 'Udara di dalam balon adalah benda gas yang mengisi seluruh ruang.',
+  },
+  {
+    id: 'k3-ipa-2',
+    subjectId: 'ipa',
+    gradeNumber: 3,
+    topicTitle: 'Perubahan Wujud',
+    prompt: 'Es batu yang dibiarkan di meja akan berubah menjadi air. Proses ini disebut ...',
+    options: ['Membeku', 'Mencair', 'Menguap', 'Menyublim'],
+    correctIndex: 1,
+    explanation: 'Perubahan benda padat menjadi cair disebut mencair.',
   },
   {
     id: 'k3-ips-1',
@@ -270,6 +370,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     explanation: 'Cat = Kucing, Dog = Anjing, Bird = Burung.',
   },
   {
+    id: 'k3-en-2',
+    subjectId: 'bahasa-inggris',
+    gradeNumber: 3,
+    topicTitle: 'Classroom Objects',
+    prompt: '"Pencil case" artinya ...',
+    options: ['Papan tulis', 'Tempat pensil', 'Tas sekolah', 'Meja guru'],
+    correctIndex: 1,
+    explanation: 'Pencil case adalah tempat untuk menyimpan pensil dan penghapus.',
+  },
+  {
     id: 'k3-sb-1',
     subjectId: 'seni-budaya',
     gradeNumber: 3,
@@ -280,7 +390,7 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     explanation: 'Angklung dimainkan dengan cara digoyangkan hingga berbunyi merdu.',
   },
 
-  // ===================== KELAS 4 SD =====================
+  // ===================== KELAS 4 SD (12 SOAL) =====================
   {
     id: 'k4-mat-1',
     subjectId: 'matematika',
@@ -312,6 +422,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     explanation: 'Kerjakan perkalian dulu: 4 × 5 = 20, lalu 15 + 20 = 35.',
   },
   {
+    id: 'k4-mat-4',
+    subjectId: 'matematika',
+    gradeNumber: 4,
+    topicTitle: 'Faktor Bilangan',
+    prompt: 'Faktor dari angka 12 adalah ...',
+    options: ['1, 2, 3, 4, 6, 12', '1, 2, 5, 12', '2, 4, 8, 12', '1, 3, 5, 12'],
+    correctIndex: 0,
+    explanation: 'Bilangan yang dapat membagi habis 12 adalah 1, 2, 3, 4, 6, dan 12.',
+  },
+  {
     id: 'k4-bi-1',
     subjectId: 'bahasa-indonesia',
     gradeNumber: 4,
@@ -322,6 +442,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     explanation: 'Kata baku yang benar adalah Aktivitas, Apotek, dan Napas.',
   },
   {
+    id: 'k4-bi-2',
+    subjectId: 'bahasa-indonesia',
+    gradeNumber: 4,
+    topicTitle: 'Paragraf',
+    prompt: 'Gagasan utama yang dibahas dalam sebuah paragraf disebut ...',
+    options: ['Pantun', 'Ide pokok', 'Koma', 'Judul'],
+    correctIndex: 1,
+    explanation: 'Ide pokok adalah inti pembahasan utama pada paragraf.',
+  },
+  {
     id: 'k4-ipa-1',
     subjectId: 'ipa',
     gradeNumber: 4,
@@ -330,6 +460,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     options: ['Respirasi', 'Fotosintesis', 'Adaptasi', 'Evaporasi'],
     correctIndex: 1,
     explanation: 'Fotosintesis terjadi di daun dengan bantuan klorofil dan sinar matahari.',
+  },
+  {
+    id: 'k4-ipa-2',
+    subjectId: 'ipa',
+    gradeNumber: 4,
+    topicTitle: 'Gaya & Gerak',
+    prompt: 'Gaya yang menyebabkan buah apel jatuh ke tanah adalah gaya ...',
+    options: ['Listrik', 'Magnet', 'Gravitasi', 'Otot'],
+    correctIndex: 2,
+    explanation: 'Gaya gravitasi Bumi menarik semua benda menuju pusat Bumi.',
   },
   {
     id: 'k4-ips-1',
@@ -345,6 +485,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     ],
     correctIndex: 1,
     explanation: 'Walau Indonesia beragam suku dan budaya, kita tetap satu bangsa.',
+  },
+  {
+    id: 'k4-ips-2',
+    subjectId: 'ips',
+    gradeNumber: 4,
+    topicTitle: 'Rumah Adat',
+    prompt: 'Rumah adat Tongkonan berasal dari provinsi ...',
+    options: ['Jawa Barat', 'Sulawesi Selatan', 'Bali', 'Aceh'],
+    correctIndex: 1,
+    explanation: 'Tongkonan adalah rumah adat suku Toraja di Sulawesi Selatan.',
   },
   {
     id: 'k4-en-1',
@@ -372,7 +522,7 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     explanation: 'Merah, Kuning, dan Biru adalah warna dasar untuk membuat warna lain.',
   },
 
-  // ===================== KELAS 5 SD =====================
+  // ===================== KELAS 5 SD (12 SOAL) =====================
   {
     id: 'k5-mat-1',
     subjectId: 'matematika',
@@ -404,6 +554,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     explanation: 'Jarak = Kecepatan × Waktu = 60 × 2 = 120 km.',
   },
   {
+    id: 'k5-mat-4',
+    subjectId: 'matematika',
+    gradeNumber: 5,
+    topicTitle: 'Volume Balok',
+    prompt: 'Volume balok berukuran panjang 6 cm, lebar 4 cm, tinggi 3 cm adalah ...',
+    options: ['48 cm³', '72 cm³', '24 cm³', '60 cm³'],
+    correctIndex: 1,
+    explanation: 'Volume balok = p × l × t = 6 × 4 × 3 = 72 cm³.',
+  },
+  {
     id: 'k5-bi-1',
     subjectId: 'bahasa-indonesia',
     gradeNumber: 5,
@@ -412,6 +572,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     options: ['Buah segar', 'Oleh-oleh', 'Anak kesayangan', 'Hasil lukisan'],
     correctIndex: 1,
     explanation: 'Buah tangan merupakan ungkapan yang bermakna oleh-oleh.',
+  },
+  {
+    id: 'k5-bi-2',
+    subjectId: 'bahasa-indonesia',
+    gradeNumber: 5,
+    topicTitle: 'Ciri Pantun',
+    prompt: 'Satu bait pantun terdiri atas ... baris.',
+    options: ['2 baris', '3 baris', '4 baris', '6 baris'],
+    correctIndex: 2,
+    explanation: 'Pantun bersajak a-b-a-b dan memiliki 4 baris (2 sampiran, 2 isi).',
   },
   {
     id: 'k5-ipa-1',
@@ -424,6 +594,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     explanation: 'Paru-paru menghirup oksigen dan mengeluarkan karbon dioksida.',
   },
   {
+    id: 'k5-ipa-2',
+    subjectId: 'ipa',
+    gradeNumber: 5,
+    topicTitle: 'Rantai Makanan',
+    prompt: 'Dalam rantai makanan: Padi -> Tikus -> Ular -> Elang. Padi berperan sebagai ...',
+    options: ['Konsumen I', 'Produsen', 'Pengurai', 'Predator'],
+    correctIndex: 1,
+    explanation: 'Tumbuhan hijau seperti padi membuat makanan sendiri sehingga menjadi produsen.',
+  },
+  {
     id: 'k5-ips-1',
     subjectId: 'ips',
     gradeNumber: 5,
@@ -432,6 +612,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     options: ['1 Juni', '17 Agustus', '28 Oktober', '10 November'],
     correctIndex: 1,
     explanation: 'Proklamasi Kemerdekaan Indonesia dibacakan pada 17 Agustus 1945.',
+  },
+  {
+    id: 'k5-ips-2',
+    subjectId: 'ips',
+    gradeNumber: 5,
+    topicTitle: 'Kenampakan Alam',
+    prompt: 'Indonesia disebut negara maritim karena sebagian besar wilayahnya berupa ...',
+    options: ['Gurun', 'Lautan', 'Salju', 'Pegunungan es'],
+    correctIndex: 1,
+    explanation: 'Indonesia memiliki lautan yang sangat luas di antara ribuan pulau.',
   },
   {
     id: 'k5-en-1',
@@ -454,7 +644,7 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     explanation: 'Batik Indonesia memiliki beragam motif indah dan diakui UNESCO.',
   },
 
-  // ===================== KELAS 6 SD =====================
+  // ===================== KELAS 6 SD (12 SOAL) =====================
   {
     id: 'k6-mat-1',
     subjectId: 'matematika',
@@ -486,6 +676,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     explanation: '(80 + 90 + 100) ÷ 3 = 270 ÷ 3 = 90.',
   },
   {
+    id: 'k6-mat-4',
+    subjectId: 'matematika',
+    gradeNumber: 6,
+    topicTitle: 'Keliling Lingkaran',
+    prompt: 'Diameter lingkaran 14 cm (π = 22/7). Keliling lingkaran adalah ...',
+    options: ['22 cm', '44 cm', '88 cm', '154 cm'],
+    correctIndex: 1,
+    explanation: 'Keliling = π × d = (22/7) × 14 = 44 cm.',
+  },
+  {
     id: 'k6-bi-1',
     subjectId: 'bahasa-indonesia',
     gradeNumber: 6,
@@ -494,6 +694,21 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     options: ['Tanya', 'Persuasif', 'Berita', 'Pasif'],
     correctIndex: 1,
     explanation: 'Kalimat persuasif bertujuan mengajak pendengar berbuat baik.',
+  },
+  {
+    id: 'k6-bi-2',
+    subjectId: 'bahasa-indonesia',
+    gradeNumber: 6,
+    topicTitle: 'Kalimat Efektif',
+    prompt: 'Kalimat "Para siswa-siswa sedang belajar" tidak efektif karena ...',
+    options: [
+      'Terlalu pendek',
+      'Pemborosan kata (para & siswa-siswa)',
+      'Tidak ada tanda seru',
+      'Menggunakan huruf kapital',
+    ],
+    correctIndex: 1,
+    explanation: 'Cukup ditulis "Para siswa sedang belajar" atau "Siswa-siswa sedang belajar".',
   },
   {
     id: 'k6-ipa-1',
@@ -506,6 +721,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     explanation: 'Jupiter adalah planet ke-5 dan terbesar di Tata Surya.',
   },
   {
+    id: 'k6-ipa-2',
+    subjectId: 'ipa',
+    gradeNumber: 6,
+    topicTitle: 'Gerakan Bumi',
+    prompt: 'Terjadinya pergantian siang dan malam disebabkan oleh ...',
+    options: ['Revolusi Bulan', 'Rotasi Bumi', 'Gerhana Matahari', 'Pasang Surut'],
+    correctIndex: 1,
+    explanation: 'Bumi berputar pada porosnya (rotasi) selama 24 jam sehingga terjadi siang dan malam.',
+  },
+  {
     id: 'k6-ips-1',
     subjectId: 'ips',
     gradeNumber: 6,
@@ -514,6 +739,16 @@ export const SD_QUIZ_BANK: QuizBankDoc[] = [
     options: ['PBB', 'ASEAN', 'APEC', 'OPEC'],
     correctIndex: 1,
     explanation: 'ASEAN berdiri pada 8 Agustus 1967 dan Indonesia salah satu pendirinya.',
+  },
+  {
+    id: 'k6-ips-2',
+    subjectId: 'ips',
+    gradeNumber: 6,
+    topicTitle: 'Ibu Kota Negara ASEAN',
+    prompt: 'Negara tetangga yang beribu kota di Kuala Lumpur adalah ...',
+    options: ['Thailand', 'Malaysia', 'Singapura', 'Filipina'],
+    correctIndex: 1,
+    explanation: 'Kuala Lumpur adalah ibu kota negara Malaysia.',
   },
   {
     id: 'k6-en-1',
@@ -545,11 +780,14 @@ export function getQuestionsByGradeAndSubject(
   const filtered = bank.filter(
     (q) => q.gradeNumber === gradeNumber && (!subjectId || q.subjectId === subjectId)
   );
-  // If a subject has fewer than 3 questions for that grade, top up from same grade across subjects so quiz always feels rich
+  // If a specific subject has fewer than 5 questions in that grade, pad smoothly with other questions from the same grade
   const pool =
-    filtered.length >= 3
+    filtered.length >= 5
       ? filtered
-      : [...filtered, ...bank.filter((q) => q.gradeNumber === gradeNumber && q.subjectId !== subjectId)].slice(0, 5);
+      : [
+          ...filtered,
+          ...bank.filter((q) => q.gradeNumber === gradeNumber && q.subjectId !== subjectId),
+        ].slice(0, subjectId ? 6 : 12);
 
   return pool.map((doc) => ({
     id: doc.id,

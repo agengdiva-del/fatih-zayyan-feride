@@ -41,16 +41,27 @@ service cloud.firestore {
       return subjectId in ['bahasa-indonesia', 'matematika', 'ipa', 'ips', 'bahasa-inggris', 'seni-budaya'];
     }
 
+    function isValidPhoto(data) {
+      return !('customPhotoUrl' in data)
+        || data.customPhotoUrl == null
+        || (
+          data.customPhotoUrl is string
+          && data.customPhotoUrl.size() <= 60000
+          && data.customPhotoUrl.matches('^data:image/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$')
+        );
+    }
+
     function isValidUserProfile(data) {
       return data.keys().hasAll([
         'uid', 'displayName', 'avatarId', 'grade', 'gradeNumber',
         'daerah', 'sekolah', 'xp', 'weeklyProgress', 'badgesCount',
         'certificatesCount', 'completedTopics', 'unlockedBadges', 'updatedAt'
       ]) && data.keys().hasOnly([
-        'uid', 'displayName', 'avatarId', 'grade', 'gradeNumber',
+        'uid', 'displayName', 'avatarId', 'customPhotoUrl', 'grade', 'gradeNumber',
         'daerah', 'sekolah', 'xp', 'weeklyProgress', 'badgesCount',
         'certificatesCount', 'completedTopics', 'unlockedBadges', 'updatedAt'
       ])
+      && isValidPhoto(data)
       && isValidId(data.uid)
       && data.uid == request.auth.uid
       && data.displayName is string && data.displayName.size() >= 1 && data.displayName.size() <= 40
@@ -75,9 +86,10 @@ service cloud.firestore {
         'uid', 'displayName', 'avatarId', 'grade', 'gradeNumber',
         'daerah', 'sekolah', 'xp', 'badgesCount', 'updatedAt'
       ]) && data.keys().hasOnly([
-        'uid', 'displayName', 'avatarId', 'grade', 'gradeNumber',
+        'uid', 'displayName', 'avatarId', 'customPhotoUrl', 'grade', 'gradeNumber',
         'daerah', 'sekolah', 'xp', 'badgesCount', 'updatedAt'
       ])
+      && isValidPhoto(data)
       && isValidId(data.uid)
       && (data.uid == request.auth.uid || isAdmin())
       && data.displayName is string && data.displayName.size() >= 1 && data.displayName.size() <= 40
@@ -127,7 +139,7 @@ service cloud.firestore {
         && incoming().uid == existing().uid
         && incoming().updatedAt == request.time
         && incoming().diff(existing()).affectedKeys().hasOnly([
-          'displayName', 'avatarId', 'grade', 'gradeNumber',
+          'displayName', 'avatarId', 'customPhotoUrl', 'grade', 'gradeNumber',
           'daerah', 'sekolah', 'xp', 'weeklyProgress', 'badgesCount',
           'certificatesCount', 'completedTopics', 'unlockedBadges', 'updatedAt'
         ]);
@@ -150,7 +162,7 @@ service cloud.firestore {
         && incoming().uid == existing().uid
         && incoming().updatedAt == request.time
         && incoming().diff(existing()).affectedKeys().hasOnly([
-          'displayName', 'avatarId', 'grade', 'gradeNumber',
+          'displayName', 'avatarId', 'customPhotoUrl', 'grade', 'gradeNumber',
           'daerah', 'sekolah', 'xp', 'badgesCount', 'updatedAt'
         ]);
       allow delete: if isVerified() && isValidId(entryId) && (entryId == request.auth.uid || isAdmin());

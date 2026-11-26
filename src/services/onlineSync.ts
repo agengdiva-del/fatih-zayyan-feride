@@ -34,6 +34,11 @@ export async function syncStudentToFirestore(profile: StudentProfile, uid: strin
   const safeSekolah = profile.sekolah.trim().slice(0, 60) || 'SDN 01 Menteng';
   const safeGradeNumber = Math.min(6, Math.max(1, Math.round(profile.gradeNumber || 4)));
 
+  const safePhoto =
+    profile.customPhotoUrl && profile.customPhotoUrl.length <= 60000
+      ? profile.customPhotoUrl
+      : null;
+
   try {
     await setDoc(
       userRef,
@@ -41,6 +46,7 @@ export async function syncStudentToFirestore(profile: StudentProfile, uid: strin
         uid,
         displayName: safeName,
         avatarId: profile.avatarId,
+        customPhotoUrl: safePhoto,
         grade: profile.grade,
         gradeNumber: safeGradeNumber,
         daerah: safeDaerah,
@@ -66,6 +72,7 @@ export async function syncStudentToFirestore(profile: StudentProfile, uid: strin
         uid,
         displayName: safeName,
         avatarId: profile.avatarId,
+        customPhotoUrl: safePhoto,
         grade: profile.grade,
         gradeNumber: safeGradeNumber,
         daerah: safeDaerah,
@@ -91,6 +98,7 @@ export async function loadUserProfileFromFirestore(uid: string): Promise<Partial
       uid,
       name: d.displayName,
       avatarId: d.avatarId,
+      customPhotoUrl: d.customPhotoUrl ?? null,
       grade: d.grade,
       gradeNumber: d.gradeNumber,
       daerah: d.daerah,
@@ -127,6 +135,7 @@ export function subscribeOnlineLeaderboard(
           uid: data.uid,
           displayName: data.displayName,
           avatarId: data.avatarId,
+          customPhotoUrl: data.customPhotoUrl ?? null,
           grade: data.grade,
           gradeNumber: data.gradeNumber,
           daerah: data.daerah,

@@ -60,7 +60,7 @@ export function DashboardScreen({
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
             className="self-end sm:self-center shrink-0"
           >
-            <KidAvatar avatarId={profile.avatarId} mood="waving" size={104} className="drop-shadow-md" />
+            <KidAvatar avatarId={profile.avatarId} photoUrl={profile.customPhotoUrl} mood="waving" size={104} className="drop-shadow-md" />
           </motion.div>
         </div>
 
@@ -246,7 +246,7 @@ export function DashboardScreen({
               <span>Game Edukasi</span>
             </div>
             <p className="mt-1 text-sm font-semibold text-emerald-100">
-              Main Tangkap Huruf, Tebak Angka, Susun Kata & Puzzle Hewan!
+              Main 8 game seru: Tangkap Huruf, Roket Hitung, Tebak Warna, Misi Sains &amp; lainnya!
             </p>
           </div>
           <span className="text-3xl shrink-0 group-hover:scale-110 transition-transform">

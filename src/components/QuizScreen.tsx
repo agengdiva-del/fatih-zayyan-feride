@@ -10,6 +10,7 @@ interface QuizScreenProps {
   topic: TopicInfo;
   level: DifficultyLevel;
   avatarId: AvatarId;
+  photoUrl?: string | null;
   gradeNumber?: GradeNumber;
   overrideQuestions?: LearningQuestion[] | null;
   quizTitleOverride?: string;
@@ -22,6 +23,7 @@ export function QuizScreen({
   topic,
   level,
   avatarId,
+  photoUrl,
   gradeNumber,
   overrideQuestions = null,
   quizTitleOverride,
@@ -307,7 +309,7 @@ export function QuizScreen({
 
       <div className="pt-2 flex flex-col sm:flex-row items-center gap-4">
         <div className="flex items-center gap-3 self-start sm:self-center">
-          <KidAvatar avatarId={avatarId} mood="thinking" size={84} className="shrink-0" />
+          <KidAvatar avatarId={avatarId} photoUrl={photoUrl} mood="thinking" size={84} className="shrink-0" />
           <div className="bg-white px-4 py-2.5 rounded-2xl rounded-bl-sm border border-sky-200 shadow-sm font-bold text-sm text-slate-800">
             &ldquo;Ayo, kamu pasti bisa!&rdquo;
           </div>

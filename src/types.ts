@@ -34,6 +34,7 @@ export interface StudentProfile {
   daerah: string;
   sekolah: string;
   avatarId: AvatarId;
+  customPhotoUrl?: string | null;
   xp: number;
   weeklyProgress: number;
   badgesCount: number;
@@ -47,6 +48,7 @@ export interface LeaderboardEntry {
   uid: string;
   displayName: string;
   avatarId: AvatarId;
+  customPhotoUrl?: string | null;
   grade: string;
   gradeNumber: GradeNumber;
   daerah: string;

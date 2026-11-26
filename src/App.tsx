@@ -152,6 +152,7 @@ function AppContent() {
               uid: user.uid,
               name: remote.name || user.displayName || 'Siswa Robot',
               avatarId: remote.avatarId || 'fatih',
+              customPhotoUrl: remote.customPhotoUrl ?? null,
               grade: remote.grade || 'Kelas 4 SD',
               gradeNumber: (remote.gradeNumber as GradeNumber) || 4,
               gradeBand:
@@ -244,7 +245,8 @@ function AppContent() {
     gradeNumber: GradeNumber,
     avatarId: AvatarId,
     daerah: string,
-    sekolah: string
+    sekolah: string,
+    customPhotoUrl?: string | null
   ) => {
     const newId = `siswa-${Date.now()}`;
     const gradeBand =
@@ -258,6 +260,7 @@ function AppContent() {
       daerah,
       sekolah,
       avatarId,
+      customPhotoUrl: customPhotoUrl ?? null,
       xp: 100,
       weeklyProgress: 20,
       badgesCount: 1,
@@ -298,6 +301,7 @@ function AppContent() {
           uid: user.uid,
           name: existingRemote.name || user.displayName || activeProfile.name,
           avatarId: existingRemote.avatarId || activeProfile.avatarId,
+          customPhotoUrl: existingRemote.customPhotoUrl ?? activeProfile.customPhotoUrl ?? null,
           grade: existingRemote.grade || activeProfile.grade,
           gradeNumber: (existingRemote.gradeNumber as GradeNumber) || activeProfile.gradeNumber,
           gradeBand:
@@ -452,7 +456,11 @@ function AppContent() {
               }}
               className="flex items-center gap-2 pl-1.5 pr-3 py-1 rounded-full bg-sky-50 hover:bg-sky-100 border border-sky-200 cursor-pointer transition-colors"
             >
-              <KidAvatar avatarId={activeProfile.avatarId} size={32} />
+              <KidAvatar
+                avatarId={activeProfile.avatarId}
+                photoUrl={activeProfile.customPhotoUrl}
+                size={32}
+              />
               <span className="font-display font-bold text-sm text-slate-900 whitespace-nowrap">
                 {activeProfile.name}
               </span>
@@ -485,6 +493,7 @@ function AppContent() {
           <SubjectScreen
             subject={activeSubject}
             avatarId={activeProfile.avatarId}
+            photoUrl={activeProfile.customPhotoUrl}
             selectedGrade={selectedGrade}
             onSelectGrade={setSelectedGrade}
             selectedLevel={selectedLevel}
@@ -510,6 +519,7 @@ function AppContent() {
             topic={selectedTopic}
             level={selectedLevel}
             avatarId={activeProfile.avatarId}
+            photoUrl={activeProfile.customPhotoUrl}
             onBack={() => setScreen('subject')}
             onEarnXP={(xp, topicId) => addXP(xp, topicId)}
           />
@@ -528,6 +538,7 @@ function AppContent() {
             topic={selectedTopic}
             level={selectedLevel}
             avatarId={activeProfile.avatarId}
+            photoUrl={activeProfile.customPhotoUrl}
             gradeNumber={gradeQuizQuestions ? selectedGrade : undefined}
             overrideQuestions={gradeQuizQuestions}
             quizTitleOverride={quizTitleOverride}

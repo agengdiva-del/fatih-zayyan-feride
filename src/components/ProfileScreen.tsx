@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowLeft, Cloud, LogOut, Settings, Volume2, VolumeX, X } from 'lucide-react';
+import { ArrowLeft, Camera, Cloud, LogOut, Settings, Trash2, Volume2, VolumeX, X } from 'lucide-react';
 import { AvatarId, BadgeItem, GradeNumber, StudentProfile } from '../types';
 import { BADGES } from '../data/curriculum';
 import { DAERAH_LIST, SEKOLAH_LIST } from '../data/quizDatabase';
 import { KidAvatar } from './CartoonArt';
+import { compressAvatarPhoto } from '../utils/photoUpload';
 import { soundFX } from '../utils/sound';
 
 interface ProfileScreenProps {
@@ -46,6 +47,48 @@ export function ProfileScreen({
   const [editDaerah, setEditDaerah] = useState(profile.daerah);
   const [editSekolah, setEditSekolah] = useState(profile.sekolah);
   const [editAvatar, setEditAvatar] = useState<AvatarId>(profile.avatarId);
+  const [editPhotoUrl, setEditPhotoUrl] = useState<string | null>(profile.customPhotoUrl ?? null);
+
+  const [photoBusy, setPhotoBusy] = useState(false);
+  const [photoError, setPhotoError] = useState<string | null>(null);
+  const quickUploadRef = useRef<HTMLInputElement | null>(null);
+  const modalUploadRef = useRef<HTMLInputElement | null>(null);
+
+  const handleQuickPhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+    setPhotoError(null);
+    setPhotoBusy(true);
+    try {
+      const compressed = await compressAvatarPhoto(file);
+      soundFX.playCorrect();
+      onUpdateProfile({ customPhotoUrl: compressed });
+    } catch (err) {
+      soundFX.playWrong();
+      setPhotoError(err instanceof Error ? err.message : 'Gagal mengunggah foto.');
+    } finally {
+      setPhotoBusy(false);
+    }
+  };
+
+  const handleModalPhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+    setPhotoError(null);
+    setPhotoBusy(true);
+    try {
+      const compressed = await compressAvatarPhoto(file);
+      soundFX.playCorrect();
+      setEditPhotoUrl(compressed);
+    } catch (err) {
+      soundFX.playWrong();
+      setPhotoError(err instanceof Error ? err.message : 'Gagal mengunggah foto.');
+    } finally {
+      setPhotoBusy(false);
+    }
+  };
 
   const handleSaveProfile = (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,6 +104,7 @@ export function ProfileScreen({
       daerah: editDaerah,
       sekolah: editSekolah,
       avatarId: editAvatar,
+      customPhotoUrl: editPhotoUrl,
     });
     setShowEdit(false);
   };
@@ -103,7 +147,35 @@ export function ProfileScreen({
         className="bg-white rounded-[28px] p-5 sm:p-6 card-kid border-2 border-sky-100 space-y-5"
       >
         <div className="flex items-center gap-4 sm:gap-5">
-          <KidAvatar avatarId={profile.avatarId} mood="happy" size={96} className="shrink-0" />
+          <div className="relative shrink-0">
+            <KidAvatar
+              avatarId={profile.avatarId}
+              photoUrl={profile.customPhotoUrl}
+              mood="happy"
+              size={96}
+            />
+            <button
+              type="button"
+              disabled={photoBusy}
+              onClick={() => {
+                soundFX.playTap();
+                quickUploadRef.current?.click();
+              }}
+              aria-label="Upload Foto Profil"
+              title="Upload Foto Sendiri"
+              className="absolute -bottom-1 -right-1 w-9 h-9 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white border-2 border-white shadow flex items-center justify-center cursor-pointer disabled:opacity-60"
+            >
+              <Camera className="w-4 h-4" />
+            </button>
+            <input
+              ref={quickUploadRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/*"
+              onChange={handleQuickPhotoUpload}
+              className="hidden"
+            />
+          </div>
+
           <div className="min-w-0">
             <h2 className="font-display font-bold text-2xl sm:text-3xl text-slate-900 truncate">
               {profile.name}
@@ -124,12 +196,41 @@ export function ProfileScreen({
                   setEditDaerah(profile.daerah);
                   setEditSekolah(profile.sekolah);
                   setEditAvatar(profile.avatarId);
+                  setEditPhotoUrl(profile.customPhotoUrl ?? null);
+                  setPhotoError(null);
                   setShowEdit(true);
                 }}
                 className="px-4 py-1.5 rounded-xl bg-sky-100 hover:bg-sky-200 text-sky-900 font-bold text-sm cursor-pointer transition-colors"
               >
                 Edit Profil
               </button>
+
+              <button
+                type="button"
+                disabled={photoBusy}
+                onClick={() => {
+                  soundFX.playTap();
+                  quickUploadRef.current?.click();
+                }}
+                className="px-3.5 py-1.5 rounded-xl bg-indigo-100 hover:bg-indigo-200 text-indigo-900 font-bold text-sm flex items-center gap-1.5 cursor-pointer transition-colors disabled:opacity-60"
+              >
+                <Camera className="w-4 h-4" />
+                <span>{photoBusy ? 'Mengunggah...' : 'Upload Foto'}</span>
+              </button>
+
+              {profile.customPhotoUrl && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundFX.playTap();
+                    onUpdateProfile({ customPhotoUrl: null });
+                  }}
+                  className="px-3 py-1.5 rounded-xl bg-rose-100 hover:bg-rose-200 text-rose-800 font-bold text-sm flex items-center gap-1 cursor-pointer transition-colors"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  <span>Pakai Robot</span>
+                </button>
+              )}
 
               {!isGoogleSignedIn ? (
                 <button
@@ -150,6 +251,10 @@ export function ProfileScreen({
                 </span>
               )}
             </div>
+
+            {photoError && (
+              <p className="mt-2 text-xs font-bold text-rose-600">{photoError}</p>
+            )}
           </div>
         </div>
 
@@ -219,7 +324,12 @@ export function ProfileScreen({
       </motion.div>
 
       <div className="flex items-center justify-center gap-3 pt-1">
-        <KidAvatar avatarId={profile.avatarId} mood="cheering" size={88} />
+        <KidAvatar
+          avatarId={profile.avatarId}
+          photoUrl={profile.customPhotoUrl}
+          mood="cheering"
+          size={88}
+        />
         <div className="bg-white rounded-2xl rounded-bl-sm px-4 py-3 border-2 border-sky-200 shadow-sm font-display font-bold text-base sm:text-lg text-[#1D4ED8]">
           Masa Depan Dimulai dari Sekarang!
         </div>
@@ -260,6 +370,51 @@ export function ProfileScreen({
             </div>
 
             <form onSubmit={handleSaveProfile} className="space-y-3.5">
+              {/* Photo Upload inside Modal */}
+              <div className="flex items-center gap-3.5 p-3 rounded-2xl bg-sky-50/70 border border-sky-100">
+                <KidAvatar avatarId={editAvatar} photoUrl={editPhotoUrl} size={66} className="shrink-0" />
+                <div className="flex-1 space-y-1.5">
+                  <div className="text-xs font-bold text-slate-600">
+                    Foto Profil Sendiri atau Avatar Robot
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <input
+                      ref={modalUploadRef}
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp,image/*"
+                      onChange={handleModalPhotoUpload}
+                      className="hidden"
+                    />
+                    <button
+                      type="button"
+                      disabled={photoBusy}
+                      onClick={() => {
+                        soundFX.playTap();
+                        modalUploadRef.current?.click();
+                      }}
+                      className="px-3 py-1.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs flex items-center gap-1.5 cursor-pointer disabled:opacity-60"
+                    >
+                      <Camera className="w-3.5 h-3.5" />
+                      <span>{photoBusy ? 'Memproses...' : 'Pilih Foto'}</span>
+                    </button>
+                    {editPhotoUrl && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          soundFX.playTap();
+                          setEditPhotoUrl(null);
+                        }}
+                        className="px-2.5 py-1.5 rounded-xl bg-rose-100 hover:bg-rose-200 text-rose-700 font-bold text-xs flex items-center gap-1 cursor-pointer"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        <span>Hapus Foto</span>
+                      </button>
+                    )}
+                  </div>
+                  {photoError && <p className="text-xs font-bold text-rose-600">{photoError}</p>}
+                </div>
+              </div>
+
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-1">Nama</label>
                 <input
@@ -318,15 +473,21 @@ export function ProfileScreen({
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-slate-700 mb-2">Karakter Robot</label>
+                <label className="block text-sm font-bold text-slate-700 mb-2">
+                  Karakter Robot {editPhotoUrl ? '(ketuk robot untuk mengganti foto)' : ''}
+                </label>
                 <div className="flex gap-2 overflow-x-auto pb-1">
                   {(['fatih', 'zayyan', 'feride', 'bintang', 'zahra'] as AvatarId[]).map((id) => (
                     <button
                       key={id}
                       type="button"
-                      onClick={() => setEditAvatar(id)}
+                      onClick={() => {
+                        soundFX.playTap();
+                        setEditAvatar(id);
+                        setEditPhotoUrl(null);
+                      }}
                       className={`p-1.5 rounded-2xl border-2 cursor-pointer shrink-0 ${
-                        editAvatar === id ? 'border-sky-500 bg-sky-50' : 'border-transparent'
+                        editAvatar === id && !editPhotoUrl ? 'border-sky-500 bg-sky-50' : 'border-transparent'
                       }`}
                     >
                       <KidAvatar avatarId={id} size={54} />

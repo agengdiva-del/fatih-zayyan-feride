@@ -8,6 +8,7 @@ import { soundFX } from '../utils/sound';
 interface SubjectScreenProps {
   subject: SubjectInfo;
   avatarId: AvatarId;
+  photoUrl?: string | null;
   selectedGrade: GradeNumber;
   onSelectGrade: (grade: GradeNumber) => void;
   selectedLevel: DifficultyLevel;
@@ -45,6 +46,7 @@ function renderTopicGlyph(iconKey: TopicInfo['iconKey']) {
 export function SubjectScreen({
   subject,
   avatarId,
+  photoUrl,
   selectedGrade,
   onSelectGrade,
   selectedLevel,
@@ -88,7 +90,7 @@ export function SubjectScreen({
         className="bg-gradient-to-r from-[#E0F2FE] via-[#F0F9FF] to-[#DBEAFE] rounded-[24px] p-5 sm:p-6 card-kid border-2 border-white flex items-center gap-4 sm:gap-6"
       >
         <div className="relative shrink-0">
-          <KidAvatar avatarId={avatarId} mood="cheering" size={96} />
+          <KidAvatar avatarId={avatarId} photoUrl={photoUrl} mood="cheering" size={96} />
           <div className="absolute -bottom-1 -right-1 w-9 h-9 rounded-xl bg-white shadow flex items-center justify-center text-lg">
             {subject.id === 'matematika' ? '🧮' : subject.id === 'ipa' ? '🔬' : '📘'}
           </div>

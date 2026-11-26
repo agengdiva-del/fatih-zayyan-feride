@@ -9,6 +9,7 @@ interface InteractiveLearnScreenProps {
   topic: TopicInfo;
   level: DifficultyLevel;
   avatarId: AvatarId;
+  photoUrl?: string | null;
   onBack: () => void;
   onEarnXP: (amount: number, topicId: string) => void;
 }
@@ -17,6 +18,7 @@ export function InteractiveLearnScreen({
   topic,
   level,
   avatarId,
+  photoUrl,
   onBack,
   onEarnXP,
 }: InteractiveLearnScreenProps) {
@@ -262,7 +264,7 @@ export function InteractiveLearnScreen({
             className="bg-gradient-to-r from-[#EFF6FF] to-[#ECFDF5] rounded-[24px] p-4 sm:p-5 border-2 border-[#86EFAC] card-kid space-y-4"
           >
             <div className="flex items-center gap-4">
-              <KidAvatar avatarId={avatarId} mood="cheering" size={82} className="shrink-0" />
+              <KidAvatar avatarId={avatarId} photoUrl={photoUrl} mood="cheering" size={82} className="shrink-0" />
               <div>
                 <div className="font-display font-bold text-2xl text-[#15803D] flex items-center gap-1.5">
                   <span>Hebat!</span>
@@ -292,7 +294,7 @@ export function InteractiveLearnScreen({
             exit={{ opacity: 0 }}
             className="bg-amber-50 rounded-2xl p-4 border-2 border-amber-200 flex items-center gap-3"
           >
-            <KidAvatar avatarId={avatarId} mood="thinking" size={64} className="shrink-0" />
+            <KidAvatar avatarId={avatarId} photoUrl={photoUrl} mood="thinking" size={64} className="shrink-0" />
             <div>
               <div className="font-display font-bold text-lg text-amber-900">
                 Hampir benar! Ayo coba lagi ya!
