@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -32,8 +32,15 @@ jobs:
       - name: Setup Capacitor & Build Android APK
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android --legacy-peer-deps
-          npx cap init "FatihZayyan" "com.example.fatihzayyan" --web-dir dist
+          cat << 'EOF' > capacitor.config.json
+          {
+            "appId": "com.example.fatihzayyan",
+            "appName": "FatihZayyan",
+            "webDir": "dist"
+          }
+          EOF
           npx cap add android
+          npx cap sync android
           cd android && chmod +x gradlew && ./gradlew assembleDebug
 
       - name: Upload APK Artifact
